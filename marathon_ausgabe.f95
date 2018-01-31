@@ -3,9 +3,13 @@ program marathon_ausgabe
 
   integer :: x, z, p
   type(ergebnis), dimension(:), allocatable :: liste
+  character(len=30) :: dateiname
 
   write(*,*) "Wie viele Läufer sind in der marathon.dat Datei?"
   read(*,*) x
+
+  write(*,*) "Output-Dateiname"
+  read(*,*) dateiname
 
   allocate(liste(x))
 
@@ -18,8 +22,10 @@ program marathon_ausgabe
 
   call bubblesort(liste)
 
-  write(*,*) "Sortierte Liste:"
-  write(*,*) liste
+  open(unit=34, file=dateiname, iostat=ios, status="new", action="write")
+
+  write(34,*) "Sortierte Liste:"
+  write(34,*) liste
 
   do p = 1, 3, 1
     write(*,*) p, ". Platz ", trim(liste(p)%name), " mit ",  &
