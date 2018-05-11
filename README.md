@@ -216,7 +216,7 @@ Dieses hat gewonnen.
 Zur Lösung dieser Aufgabenstellung sind zwei Programmvarianten zu erstellen und zu testen, wobei die besser strukturierte 
 Variante b) neben der üblichen Abgabe am Computer auch in gedruckter Form dem Tutor übergeben werden soll.
 
-Zugehörige Datei: `kinderreim.f95`
+Zugehörige Datei: `kinderreim.f95` und `KREIM.DAT`
 
 ### 19. Aufgabe (Simulation eines Supermarkts, Warteschlangen)
 Mit Hilfe von Warteschlangen (Queues), die nach dem FIFO–Prinzip (first in – first out) funktionieren, soll der zeitliche Ablauf 
