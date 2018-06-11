@@ -194,7 +194,7 @@ n ≤ 0 eingegeben wird.
 
 ## 2. Semester (SS 2018)
 
-### 17. Aufgabe (Puzzle)
+### 18. Aufgabe (Puzzle)
 Ein typisches m×n Puzzle wird aus m·n Puzzleteilen zu einem Rechteck zusammengesetzt. Anstelle eines Bildausschnitts seien die
 Puzzleteile mit je einem Zeichen (z.B. Buchstaben, Leerzeichen oder Satzzeichen) beschriftet, so dass das zusammengesetzte
 Puzzle einen m-zeiligen Text ergibt. Jedes Puzzleteil hat 4 Seiten (1. Seite rechts, 2. unten, 3. links, 4. oben), deren
@@ -207,7 +207,7 @@ beliebig verdreht sein. Beispielhaft sei hier diese Datei für ein 2 × 3 Puzzle
 Im Fortran 95-Hauptprogramm wird der Dateiname (z.B. mypuzzle.pzl) des zu lösenden Puzzles von der Tastatur eingelesen. Sodann
 wird das Puzzle eingelesen, gelöst, der Lösungstext auf dem Bildschirm ausgegeben und der verwendete Speicher freigegeben.
 
-### 18. Aufgabe (Kinderreim [einfach verkettete zyklische Liste])
+### 19. Aufgabe (Kinderreim [einfach verkettete zyklische Liste])
 Eine Gruppe von Kindern steht im Kreis. Mit dem Abzählreim "Eene, meene, muh und 'raus bist du! – 'raus bist du noch lan-ge
 nicht, sag mir erst, wie alt du bist!" wird bis zu einem Kind abgezählt (jede der 21 Silben entspricht einem Abzählschritt) und
 dann noch so viele Schritte weiter, wie dieses Kind (an Jahren) alt ist. Das dadurch ausgewählte Kind scheidet aus. Mit dem
@@ -218,7 +218,7 @@ Variante b) neben der üblichen Abgabe am Computer auch in gedruckter Form dem T
 
 Zugehörige Datei: `kinderreim.f95` und `KREIM.DAT`
 
-### 19. Aufgabe (Simulation eines Supermarkts, Warteschlangen)
+### 20. Aufgabe (Simulation eines Supermarkts, Warteschlangen)
 Mit Hilfe von Warteschlangen (Queues), die nach dem FIFO–Prinzip (first in – first out) funktionieren, soll der zeitliche Ablauf
 an den Kassen eines Supermarkts (vereinfacht) simuliert werden.
 Schreiben Sie zur Verwaltung einer Warteschlange einen Fortran 95–Modul queuemod (die in der Vorlesung vorgestellte
@@ -234,4 +234,54 @@ folgende Aktionen ausgeführt: (...)
 
 Zugehörige Datei: `queuemod.f95` und `einkaufssimulation.f95`
 
-### 20. Aufgabe
+### 21. Aufgabe (Zusammenmischen (Merge) mehrerer vorsortierter Dateien)
+Es seien 99 bereits vorsortierte Textdateien erfass1.dat, erfass2.dat, ..., erfass99.dat gegeben. Diese bestehen aus in aufsteigender Reihenfolge sortierten, durch mindestens ein Leerzeichen oder ein Zeilenende voneinander getrennten ganzen Zahlen und sind i.a. unterschiedlich lang. Jede ganze Zahl kann sowohl mehrmals in derselben Datei als auch in mehreren Dateien vorkommen. Sie können solche Dateien selbst erzeugen, indem Sie das Programm erfass.f95 übersetzen und ausführen.
+Die Aufgabe besteht darin, die Inhalte der ersten n dieser Dateien insgesamt in aufsteigen- der Reihenfolge sortiert in eine Textdatei ziel.dat auszugeben (n ist eine einzulesende natürliche Zahl mit 1 ≤ n ≤ 99). Dabei darf vorausgesetzt werden, dass keine der Eingabedateien leer ist und dass das Betriebssystem das gleichzeitige Öffnen von mindestens 100 Dateien erlaubt.
+
+Im Fortran 95–Hauptprogramm ist das Arbeitsfeld, auf dem alle Sortiervorgänge stattfinden, als eindimensionales, dynamisches Feld mit Elementen vom Typ filecomp zu vereinbaren. Es wird zunächst die Anzahl n (im Intervall [1, 99]) der zu berücksichtigenden Dateien eingelesen und dem Arbeitsfeld entsprechender Speicherplatz zugewiesen.
+Der weitere Programmablauf gliedert sich dann in drei Phasen, die als Subroutinen in einem Modul definiert und im Hauptprogramm aufgerufen werden können.
+
+Phase1: Die Namen der n zu mischenden Dateien werden z.B. mittels interner Ein/Ausgabe ( = internal I/O, d.h. mit einer Zeichenkettenvariable als Datei) erzeugt; sodann werden diese Dateien geöffnet. Den Dateien wird beim Öffnen eine eindeutige Unitnummer (im Bereich [21, 500]) zugeordnet. Die Zieldatei ziel.dat wird ebenfalls geöffnet.
+
+Phase 2: Das Arbeitsfeld wird erstmalig mit Inhalten gefüllt. Dabei werden von jeder der ersten n Erfassungsdateien deren Unitnummer sowie aus der jeweiligen Datei das erste Element in das Feld eingetragen. Anschließend wird der so gefüllte Teil des Arbeitsfelds einmalig in aufsteigender Reihenfolge (nach Inhaltskomponenten) sortiert (mittels sort).
+
+Phase 3: Der aktive Indexbereich des Arbeitsfelds ist anfänglich (1 : n). Jedesmal, wenn eine Datei erschöpft ist, d.h. wenn alle ihre Elemente gelesen wurden, reduziert sich der aktive Indexbereich um einen Index, zunächst auf (2 : n), dann auf (3 : n), etc.
+Der Algorithmus schreibt nun immer die Inhaltskomponente des ersten (kleinsten) Elements aus dem aktiven Indexbereich des Arbeitsfelds (immer an der Position mit kleinstem aktiven Index) in die Zieldatei ziel.dat und fügt sodann das nächste Element aus derselben Datei, aus der das gerade geschriebene Element stammte, mit Hilfe der Subroutine insert in den aktiven Bereich des Arbeitsfelds ein. So bleibt das Arbeitsfeld im aktiven Indexbereich immer in aufsteigender Reihenfolge sortiert. Falls eine Datei erschöpft ist und folglich kein Element mehr nachgeladen werden kann, erfolgt die oben beschriebene Reduktion des aktiven Indexbereichs.
+Das Arbeitsfeld enthält in seinem aktiven Indexbereich grundsätzlich aus jeder der noch aktiven (noch nicht erschöpften) Dateien genau ein Element. Wenn die letzte Datei erschöpft ist, wird der aktive Indexbereich leer und das Programm wird ordnungsgemäß beendet.
+Vergewissern Sie sich, dass die generierte Datei ziel.dat tatsächlich eine monoton (aber nicht streng monoton) wachsende Folge von Zahlen enthält — am besten durch nochmaliges Lesen und Testen am Ende des Programms.
+
+
+Zugehörige Dateien: `merge_mod.f95`, `merge_hp.f95` und `dateien_generator.f95`
+
+### 22. Aufgabe (Priorisierte Warteschlange zum Mischen von Dateien)
+Bearbeiten Sie die Teilaufgaben c) und d) der vorhergehenden Aufgabe mit Hilfe einer Priority-Queue (als Heap implementierte Warteschlange), um die Effizienz des Algorithmus zu steigern. Hierzu sind in c) mittels Build-Heap ein Heap zu erzeugen und in d) durch Setzen des ersten Elements (Wurzel des Heaps) auf den einzufügenden Wert und durch Heapify an der Wurzel jeweils ein neues Element einzufügen.
+Wichtig: Beachten Sie, dass hier der Heap entgegen der üblichen Ordnung an der Wurzel das kleinste Element enthält!
+Entspricht der Laufzeitgewinn in etwa Ihren Erwartungen?
+
+### 23. Aufgabe (Schnelle(?) Matrixmultiplikation nach Strassen)
+Es ist die übliche Matrixmultiplikation mit der sogenannten schnellen Matrixmultiplikation nach Strassen zu vergleichen. Dabei werden im folgenden nur noch quadratische n × n-Matrizen betrachtet, deren Dimension eine Zweierpotenz ist.
+
+Implementieren Sie in einem Fortran 95–Modul die Methoden strassen_matmul und simple_matmul, welche die Matrixmultiplikation nach Strassen bzw. die herkömmliche Matrixmultiplikation (mit 3 ineinander geschachtelten Schleifen) realisieren.
+Schreiben Sie ein Fortran 95–Hauptprogramm, welches eine ganze Zahl k einliest, daraus die Matrixgröße n = 2^k berechnet und sodann zwei n × n-Matrizen A und B anlegt und mit Daten füllt. Wahlweise sollen die Daten aus einer Datei gelesen werden oder Hilbert-Matrizen generiert werden können. Berechnen Sie sodann das Produkt C = A * B dieser beiden Matrizen  
+- einmal mit der intrinsischen Matrixmultiplikation MATMUL,
+- einmal mit der Matrixmultiplikation nach Strassen und
+- einmal nach der herko ̈mmlichen Methode
+und prüfen Sie, ob alle drei Verfahren (bis auf Rundungsfehler) dieselben Ergebnisse liefern.
+
+Messen Sie die Zeiten, die für die Multiplikationen gebraucht werden. Nutzen Sie dazu die Funktion dtime des g95-Compilers, welche entweder die Zeit seit ihrem letzten Aufruf oder, falls dieser noch nicht aufgetreten ist, die bisherige Laufzeit des Programms als reelle Zahl zurückgibt.
+Was lässt sich über die ”schnelle“ Matrixmultiplikation nach Strassen aussagen? Testen Sie die Methoden auch für große Matrizen (mit Dimensionen von mindestens 256) und verwenden Sie verschiedene Optimierungsstufen (Compileroption -On ).
+
+Zusatzfragen: Der implementierte Algorithmus ist deterministisch. Wieso treten aber bei mehrmaliger Ausführung des Programms stets andere Laufzeiten auf?
+Recherchieren Sie das Thema ”effiziente Matrixmultiplikation“. Welche algorithmischen Fortschritte konnten auf diesem Gebiet in den letzten 50 Jahren erzielt werden? Welche asymptotischen Komplexitäten konnten inzwischen erreicht werden?
+
+### 24. Aufgabe (Das Acht-(oder n)-Damen-Problem (Backtracking)
+Beim Schachspiel können sich Damen (beliebig weit) horizontal, vertikal und diagonal bewegen und auf diese Weise andere Figuren bedrohen bzw. schlagen. Beim Acht-Damen-Problem sind acht Damen so auf einem Schachbrett zu verteilen, dass keine Dame eine andere schlagen kann. Allgemeiner sind n Damen auf einem quadratischen (n × n) Spielfeld so zu platzieren, dass keine Dame eine andere bedroht.
+Schreiben Sie ein Fortran 95–Programm, welches nach der ”Trial and Error“-Methode versucht, in einer Schleife für einzulesende n jeweils alle Lösungen des n-Damen-Problems zu finden und geeignet auszugeben (entweder graphisch oder pseudo-graphisch mittels geeigneter Zeichen oder Buchstaben, die in n Zeilen und n Spalten angeordnet sind). Zählen Sie hierbei die Lösungen im Programm mit. Die Schleife ist abzubrechen, sobald ein n < 1 eingelesen wird.
+
+Bei der Suche nach Lösungen wird jeweils eine Dame in die erste Zeile der nächsten freien Spalte gesetzt und überprüft, ob diese Dame eine andere schlagen kann. Wenn nicht wird die nächste Dame in die nächste Spalte gesetzt und wieder geprüft. Sollte die zuletzt gesetzte Dame jedoch geschlagen werden können, dann wird sie eine Zeile tiefer gesetzt. Falls sie schon in der untersten Zeile steht, wird sie entfernt und die Dame in der Spalte davor eine Zeile tiefer gesetzt (sogenanntes Backtracking).
+
+Wenn die n-te Dame gesetzt ist und keine andere schlagen kann, ist eine Lösung gefunden. Wenn die erste Dame in der untersten Zeile steht und weitergesetzt werden müsste, dann sind alle Kombinationen überprüft und somit alle Lösungen gefunden.
+Diese Art der Lösungssuche kann am besten rekursiv programmiert werden. Schreiben Sie eine rekursive Subroutine, die jeweils eine Dame in die nächste freie Spalte setzt und überprüft, ob sie sicher ist. Ist dies der Fall, so ruft sich die Subroutine selbst rekursiv auf, ansonsten versucht sie, eine andere Position innerhalb derselben Spalte mit einer Dame zu besetzen.
+Zur Überprüfung, ob die zuletzt gesetzte Dame geschlagen werden kann, ist eine Funktion zu schreiben.
+
+Optional können Sie versuchen, festzustellen, wieviele fundamental verschiedene Lösungen es gibt, wenn symmetrische Lösungen nicht mitgezählt werden.
