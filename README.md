@@ -271,6 +271,8 @@ und prüfen Sie, ob alle drei Verfahren (bis auf Rundungsfehler) dieselben Ergeb
 Messen Sie die Zeiten, die für die Multiplikationen gebraucht werden. Nutzen Sie dazu die Funktion dtime des g95-Compilers, welche entweder die Zeit seit ihrem letzten Aufruf oder, falls dieser noch nicht aufgetreten ist, die bisherige Laufzeit des Programms als reelle Zahl zurückgibt.
 Was lässt sich über die ”schnelle“ Matrixmultiplikation nach Strassen aussagen? Testen Sie die Methoden auch für große Matrizen (mit Dimensionen von mindestens 256) und verwenden Sie verschiedene Optimierungsstufen (Compileroption -On ).
 
+Zugehörige Dateien: `matmul_mod.f95` und `matmul_hp.f95`
+
 Zusatzfragen: Der implementierte Algorithmus ist deterministisch. Wieso treten aber bei mehrmaliger Ausführung des Programms stets andere Laufzeiten auf?
 Recherchieren Sie das Thema ”effiziente Matrixmultiplikation“. Welche algorithmischen Fortschritte konnten auf diesem Gebiet in den letzten 50 Jahren erzielt werden? Welche asymptotischen Komplexitäten konnten inzwischen erreicht werden?
 
