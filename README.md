@@ -1,6 +1,8 @@
 # TU_PROG
 Fortran-Programme zur Vorlesung "Programmieren für Mathematiker" von Prof. Wolfgang Walter (TU Dresden)
 
+Vorlesungsmitschriften gibt es hier: [https://github.com/henrydatei/TUD_MATH_BA](https://github.com/henrydatei/TUD_MATH_BA)
+
 ## 1. Semester (WS 2017/18)
 
 ### 1. Aufgabe (Rundungsfehler)
