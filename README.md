@@ -289,3 +289,5 @@ Diese Art der Lösungssuche kann am besten rekursiv programmiert werden. Schreib
 Zur Überprüfung, ob die zuletzt gesetzte Dame geschlagen werden kann, ist eine Funktion zu schreiben.
 
 Optional können Sie versuchen, festzustellen, wieviele fundamental verschiedene Lösungen es gibt, wenn symmetrische Lösungen nicht mitgezählt werden.
+
+Zugehörige Datei: `damenproblem.f95`
