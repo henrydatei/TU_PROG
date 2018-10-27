@@ -209,7 +209,7 @@ beliebig verdreht sein. Beispielhaft sei hier diese Datei für ein 2 × 3 Puzzle
 Im Fortran 95-Hauptprogramm wird der Dateiname (z.B. mypuzzle.pzl) des zu lösenden Puzzles von der Tastatur eingelesen. Sodann
 wird das Puzzle eingelesen, gelöst, der Lösungstext auf dem Bildschirm ausgegeben und der verwendete Speicher freigegeben.
 
-Zugehörige Dateien: `puzzle_hp.f95` und  `puzzle_module.f95`
+Zugehörige Dateien: `puzzle_hp.f95`, `puzzle_module.f95`, `mypuzzle.dat` und `puzzle_21x78.dat`
 
 ### 19. Aufgabe (Kinderreim [einfach verkettete zyklische Liste])
 Eine Gruppe von Kindern steht im Kreis. Mit dem Abzählreim "Eene, meene, muh und 'raus bist du! – 'raus bist du noch lan-ge
